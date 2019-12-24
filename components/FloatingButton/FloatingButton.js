@@ -1,10 +1,16 @@
-const FloatingButton = ({changeForm, showAlert})=>{
+import Link from 'next/link';
+
+const FloatingButton = ({changeForm, showAlert, route})=>{
     return (
         <span>
-            <a href="#" className="floating-button" onClick={()=>{
-                showAlert('');
-                changeForm('add');
-            }}><span className="floating-button__icon">+</span></a>
+            {
+                (route) ? 
+                <Link href={route}><a className="floating-button"><span className="floating-button__icon">+</span></a></Link> :
+                <a href="#" className="floating-button" onClick={()=>{
+                    showAlert('');
+                    changeForm('add');
+                }}><span className="floating-button__icon">+</span></a>
+            }
             <style jsx>
                 {`
                     .floating-button{

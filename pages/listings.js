@@ -2,7 +2,7 @@ import fetch from 'isomorphic-unfetch';
 import { useState, useEffect } from 'react';
 import Dashboard from '../components/Dashboard/Dashboard';
 
-const Listings = ({users})=>{
+const listings = ({users})=>{
     let userListings = [], otherListings = [];
     const [toggleStatus, toggle] = useState('userListings');
     const [testUser] = useState('abgfigu143668');
@@ -18,7 +18,7 @@ const Listings = ({users})=>{
     return <Dashboard pageTitle="Listings - EazyRent" route="listings" toggle={toggle} toggleStatus={toggleStatus} listings={(toggleStatus === 'userListings') ? userListings : otherListings} user={testUser}/>;
 }
 
-Listings.getInitialProps = async()=>{
+listings.getInitialProps = async()=>{
     const res = await fetch('http://localhost:3004/users');
     const data = await res.json();
 
@@ -27,4 +27,4 @@ Listings.getInitialProps = async()=>{
     }
 }
 
-export default Listings;
+export default listings;

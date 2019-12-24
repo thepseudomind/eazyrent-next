@@ -9,12 +9,14 @@ const SearchBar = ()=>{
                 {`
                     .app__main--searchbar{
                         width: 100%;
+                        height: 6rem;
                         position: relative;
                     }
                     
                     .app__main--searchbar--input{
                         width: inherit;
-                        padding: 2.5rem 2rem;
+                        height: inherit;
+                        padding: 1.5rem 2rem;
                         padding-left: 6rem;
                         font-size: 1.5rem;
                         font-family: Quicksand, 'sans-serif';

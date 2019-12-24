@@ -16,11 +16,11 @@
       "static/runtime/polyfills.js",
       "static/runtime/polyfills.js.map"
     ],
-    "/listings": [
+    "/add-listing": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ],
-    "/payment": [
+    "/listings": [
       "static/runtime/webpack.js",
       "static/runtime/main.js"
     ]

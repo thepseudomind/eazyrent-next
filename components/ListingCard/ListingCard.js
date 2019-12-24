@@ -1,3 +1,5 @@
+import Link from 'next/link';
+
 const ListingCard = (listing)=>{
     return (
         <div>
@@ -16,7 +18,7 @@ const ListingCard = (listing)=>{
                 <div className="listing-card__details">
                     <h3 className="listing-card__details--price">₦{listing.price}</h3>
                     <p className="listing-card__details--type">{listing.type}</p>
-                    <a href="/" className="listing-card__btn">View</a>
+                    <Link href={`/view-listing/?id=${listing.id}`}><a className="listing-card__btn">View</a></Link>
                 </div>
             </div>
             <style jsx>

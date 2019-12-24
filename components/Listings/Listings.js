@@ -6,16 +6,16 @@ const Listings = ({listings, toggleStatus}) =>{
         <div>
             <div className="listings">
                 {
-                    listings.map((v, i)=> <ListingCard key={i} name={listings[i].name} address={listings[i].address} price={listings[i].price} type={listings[i].type} image={listings[i].imageUrl}/>)
+                    listings.map((v, i)=> <ListingCard key={listings[i].id} id={listings[i].id} name={listings[i].name} address={listings[i].address} price={listings[i].price} type={listings[i].type} image={listings[i].images[0]}/>)
                 }
             </div>
-            {toggleStatus === 'userListings' ? <FloatingButton/> : <span></span>}
+            {toggleStatus === 'userListings' ? <FloatingButton route="/add-listing"/> : <span></span>}
             <style jsx>
                 {`
                     .listings{
                         margin-top: 5rem;
                     }
-                    
+
                     .listings > *{
                         margin-bottom: 2rem;
                     }

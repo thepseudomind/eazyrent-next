@@ -5,11 +5,12 @@ const Meta = ({pageTitle})=>{
         <Head>
             <meta charSet="UTF-8" />>
             <meta name="viewport" content="width=device-width, initial-scale=1.0" />>
-            <meta httpEquiv="X-UA-Compatible" content="ie=edge" />>
+            <meta httpEquiv="X-UA-Compatible" content="ie=edge" />
+            <link type="text/css" href="https://fonts.googleapis.com/css?family=Quicksand:300,400,500,600,700&display=swap" rel="stylesheet"></link>
             <title>{pageTitle}</title>
             <style jsx global>
             {`
-                    @import url('https://fonts.googleapis.com/css?family=Quicksand:300,400,500,600,700&display=swap');
+                    // @import url('https://fonts.googleapis.com/css?family=Quicksand:300,400,500,600,700&display=swap');
                     
                     *{
                         padding: 0;
