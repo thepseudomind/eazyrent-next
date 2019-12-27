@@ -1,4 +1,8 @@
+import { useState } from 'react';
+
 const DetailBox = ({listing})=>{
+    const [likeStatus, likeHome] = useState(false);
+    const [shareStatus, shareHome] = useState(false);
     return (
         <div>
             <div className="detail-box">
@@ -47,8 +51,8 @@ const DetailBox = ({listing})=>{
                     </div> */}
                 </div>
                 <div className="detail-box__buttons">
-                    <span>Fav</span>
-                    <span>Share</span>
+                    <span><img src={likeStatus ? "/img/heart-active.png" : "/img/heart.png"} className="detail-box__buttons--like" onClick={()=>likeHome(!likeStatus)}/></span>
+                    <span><img src={shareStatus ? "/img/share-active.png" : "/img/share.png"} className="detail-box__buttons--share" onClick={()=>shareHome(!shareStatus)}/></span>
                     <a href="/" className="detail-box__btn">Book now</a>
                 </div>
             </div>
@@ -110,10 +114,14 @@ const DetailBox = ({listing})=>{
                     }
                     
                     .detail-box__buttons{
-                        width: 65%;
+                        width: 55%;
                         display: flex;
-                        justify-content: space-between;
                         align-items: center;
+                    }
+
+                    .detail-box__buttons--like, .detail-box__buttons--share{
+                        width: 40%;
+                        cursor: pointer;
                     }
                     
                     .detail-box__btn{
@@ -121,7 +129,9 @@ const DetailBox = ({listing})=>{
                     }
                     
                     .detail-box__btn:link, .detail-box__btn:active{
-                        align-self: flex-start;
+                        // align-self: flex-start;
+                        flex: 0 0 35%;
+                        text-align: center;
                         text-decoration: none;
                         display: inline-block;
                         font-size: 1.5rem;

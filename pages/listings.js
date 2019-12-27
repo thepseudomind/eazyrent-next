@@ -2,16 +2,16 @@ import fetch from 'isomorphic-unfetch';
 import { useState, useEffect } from 'react';
 import Dashboard from '../components/Dashboard/Dashboard';
 
-const listings = ({users})=>{
+const listings = ({listings})=>{
     let userListings = [], otherListings = [];
     const [toggleStatus, toggle] = useState('userListings');
     const [testUser] = useState('abgfigu143668');
 
-    for (const user in users) {
-        if(user === testUser){
-            userListings = users[testUser].listings;
+    for (const listing of listings) {
+        if(listing.user === testUser){
+            userListings.push(listing);
         }else{
-            otherListings = users[user].listings;
+            otherListings.push(listing);
         };
     }
     
@@ -19,11 +19,11 @@ const listings = ({users})=>{
 }
 
 listings.getInitialProps = async()=>{
-    const res = await fetch('http://localhost:3004/users');
+    const res = await fetch('http://localhost:3004/listings');
     const data = await res.json();
 
     return {
-        users: data
+        listings: data
     }
 }
 

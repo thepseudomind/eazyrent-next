@@ -1,6 +1,6 @@
 import { useState} from 'react';
 
-const ImagePicker = ()=>{
+const ImagePicker = ({getImages})=>{
     const[images, chooseImages] = useState([]);
 
     const recieveImages = (files)=>{
@@ -10,6 +10,7 @@ const ImagePicker = ()=>{
     const renderImage = (image, i)=>{
         const reader = new FileReader();
         reader.addEventListener('load', ()=>{
+            getImages(reader.result);
             document.getElementById(`preview-${i}`).style.backgroundImage = `url(${reader.result})`;
         });
         reader.readAsDataURL(image); 

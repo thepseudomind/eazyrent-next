@@ -1,4 +1,53 @@
-const ListingForm = ()=>{
+import { useState } from 'react';
+
+const ListingForm = ({addListing})=>{
+    const [cityToRender, changeCity] = useState([]);
+
+    const chooseState = (state) =>{
+        switch (state) {
+            case 'lagos':
+                changeCity([
+                    <option value="ikeja">Ikeja</option>,
+                    <option value="victoria">Victoria Island</option>,
+                    <option value="yaba">Yaba</option>
+                ]);
+                break;
+
+            case 'abuja':
+                changeCity([
+                    <option value="gwagwalada">Gwagwalada</option>,
+                    <option value="wuse">Wuse</option>,
+                    <option value="wuse-2">Wuse II</option>
+                ]);
+                break;
+
+            case 'ogun':
+                    changeCity([
+                        <option value="ijebu">Ijebu</option>,
+                        <option value="otta">Otta</option>,
+                        <option value="abeokuta">Abeokuta</option>
+                    ]);
+                    break;
+
+            case 'rivers':
+                    changeCity([
+                        <option value="port-harcourt">Port Harcourt</option>
+                    ]);
+                    break;
+
+            case 'oyo':
+                    changeCity([
+                        <option value="ibadan">Ibadan</option>,
+                        <option value="ogbomosho">Ogbomosho</option>
+                    ]);
+                    break;
+
+            case 'none':
+                    changeCity([]);
+                    break;
+        }
+    }
+
     return (
         <div>
             <div className="listing-form">
@@ -28,23 +77,21 @@ const ListingForm = ()=>{
                     </div>
                     <div className="listing-form__row">
                         <div className="listing-form__col">
-                            <select className="listing-form__type" placeholder="Bedrooms" id="state">
-                                <option value="none">Choose one</option>
-                                <option value="1">Lagos</option>
-                                <option value="2">Abuja</option>
-                                <option value="3">Ogun</option>
-                                <option value="4">Port Harcourt</option>
-                                <option value="5">Oyo</option>
+                            <select className="listing-form__type" placeholder="Bedrooms" id="state" onChange={(e)=>chooseState(e.target.value)}>
+                                <option value="none" onClick={(e)=>chooseState('')}>Choose one</option>
+                                <option value="lagos">Lagos</option>
+                                <option value="abuja">Abuja</option>
+                                <option value="ogun">Ogun</option>
+                                <option value="rivers">Rivers</option>
+                                <option value="oyo">Oyo</option>
                             </select>
                             <label className="listing-form__label" htmlFor="state">state</label>
                         </div>
                         <div className="listing-form__col">
-                            <select className="listing-form__type" placeholder="Bedrooms" id="city">
-                                <option value="none">Choose one</option>
-                                <option value="1">Ikeja</option>
-                                <option value="2">Victoria Island</option>
-                                <option value="3">Yaba</option>
-                            </select>
+                        <select className="listing-form__type" placeholder="Bedrooms" id="city">
+                            <option value="none">Choose one</option>
+                            {cityToRender}
+                        </select>
                             <label className="listing-form__label" htmlFor="city">city</label>
                         </div>
                     </div>
@@ -70,7 +117,7 @@ const ListingForm = ()=>{
                             <label className="listing-form__label" htmlFor="baths">no of bathrooms</label>
                         </div>
                     </div>
-                    <div className="listing-form__footer"><a href="#" className="listing-form__btn">Add new home</a></div>
+                    <div className="listing-form__footer"><a href="#" className="listing-form__btn" onClick={addListing}>Add new home</a></div>
                 </form>
             </div>
             <style jsx>

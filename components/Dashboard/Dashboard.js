@@ -40,8 +40,8 @@ const Dashboard = (props)=> {
                 <div>
                     <BackButton text="Back to listings" route="/listings"/>
                     <div className="app__main--details">
-                        <ListingForm/>
-                        <ImagePicker/>
+                        <ListingForm addListing={props.addListing}/>
+                        <ImagePicker getImages={props.getImages}/>
                     </div>
                     <style jsx>
                         {`
