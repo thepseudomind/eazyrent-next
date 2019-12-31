@@ -9,8 +9,8 @@ const ListingCard = (listing)=>{
                     <h3 className="listing-card__text--name">{listing.name}</h3>
                     <p className="listing-card__text--address">{listing.address}</p>
                     <div className="listing-card__text--details">
-                        <span className="listing-card__icons">2<img src="/img/bed.png" alt="bedrooms" className="listing-card__icon"/></span>
-                        <span className="listing-card__icons">2<img src="/img/bathtub.png" alt="bathrooms" className="listing-card__icon"/></span>
+                        <span className="listing-card__icons">{listing.beds}<img src="/img/bed.png" alt="bedrooms" className="listing-card__icon"/></span>
+                        <span className="listing-card__icons">{listing.baths}<img src="/img/bathtub.png" alt="bathrooms" className="listing-card__icon"/></span>
                         <span className="listing-card__icons">Good<img src="img/road.png" alt="roads" className="listing-card__icon"/></span>
                         <span className="listing-card__icons">Great<img src="/img/electricity.png" alt="lectricity" className="listing-card__icon"/></span>
                     </div>
@@ -58,6 +58,7 @@ const ListingCard = (listing)=>{
                     
                     .listing-card__img{
                         width: 100%;
+                        height: 15rem;
                         border-radius: .5rem;
                     }
                     
@@ -70,6 +71,7 @@ const ListingCard = (listing)=>{
                         flex: 0 0 30%;
                         display: flex;
                         flex-direction: column;
+                        align-items: flex-start;
                         justify-content: space-between;
                         color:#683507;
                         transition: all .2s ease;
@@ -80,7 +82,7 @@ const ListingCard = (listing)=>{
                     }
                     
                     .listing-card__text--name{
-                        font-size: 3rem;
+                        font-size: 2.75rem;
                         font-weight: 700;
                     }
                     

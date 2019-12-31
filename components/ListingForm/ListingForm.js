@@ -1,8 +1,8 @@
 import { useState } from 'react';
 
-const ListingForm = ({addListing})=>{
+const ListingForm = ({formTitle, addListing, listingToEdit, editMode, overwriteListing})=>{
     const [cityToRender, changeCity] = useState([]);
-
+    
     const chooseState = (state) =>{
         switch (state) {
             case 'lagos':
@@ -51,23 +51,23 @@ const ListingForm = ({addListing})=>{
     return (
         <div>
             <div className="listing-form">
-                <h1 className="listing-form__title">Add new home</h1>
+                <h1 className="listing-form__title">{formTitle}</h1>
                 <form>
                     <div className="listing-form__form">
-                        <input type="text" className="listing-form__input" placeholder="2 bedroom flat" id="title"/>
+                        <input type="text" className="listing-form__input" placeholder="2 bedroom flat" id="title" defaultValue={listingToEdit ? listingToEdit.name : ''}/>
                         <label className="listing-form__label" htmlFor="title">title</label>
                     </div>
                     <div className="listing-form__form">
-                        <input type="text" className="listing-form__input" placeholder="56, Bolanle Avenue" id="address"/>
+                        <input type="text" className="listing-form__input" placeholder="56, Bolanle Avenue" id="address" defaultValue={listingToEdit ? listingToEdit.address : ''}/>
                         <label className="listing-form__label" htmlFor="address">address</label>
                     </div>
                     <div className="listing-form__row">
                         <div className="listing-form__col">
-                            <input type="number" className="listing-form__price" placeholder="250000" id="price"/>
+                            <input type="number" className="listing-form__price" placeholder="250000" id="price" defaultValue={listingToEdit ? listingToEdit.price : ''}/>
                             <label className="listing-form__label" htmlFor="price">price</label>
                         </div>
                         <div className="listing-form__col">
-                            <select className="listing-form__type" placeholder="Choose one" id="payment">
+                            <select className="listing-form__type" placeholder="Choose one" id="payment" defaultValue={listingToEdit ? listingToEdit.type : ''}>
                                 <option value="none">Choose one</option>
                                 <option value="monthly">Monthly</option>
                                 <option value="yearly">Yearly</option>
@@ -77,8 +77,8 @@ const ListingForm = ({addListing})=>{
                     </div>
                     <div className="listing-form__row">
                         <div className="listing-form__col">
-                            <select className="listing-form__type" placeholder="Bedrooms" id="state" onChange={(e)=>chooseState(e.target.value)}>
-                                <option value="none" onClick={(e)=>chooseState('')}>Choose one</option>
+                            <select className="listing-form__type" placeholder="Bedrooms" id="state" onChange={(e)=>chooseState(e.target.value)} disabled={listingToEdit ? true : false}>
+                                {listingToEdit ? <option value={listingToEdit.city}>{listingToEdit.state}</option> : <option value="none" onClick={()=>chooseState('')}>Choose one</option>}
                                 <option value="lagos">Lagos</option>
                                 <option value="abuja">Abuja</option>
                                 <option value="ogun">Ogun</option>
@@ -88,8 +88,8 @@ const ListingForm = ({addListing})=>{
                             <label className="listing-form__label" htmlFor="state">state</label>
                         </div>
                         <div className="listing-form__col">
-                        <select className="listing-form__type" placeholder="Bedrooms" id="city">
-                            <option value="none">Choose one</option>
+                        <select className="listing-form__type" placeholder="Bedrooms" id="city" disabled={listingToEdit ? true : false}>
+                            {listingToEdit ? <option value={listingToEdit.city}>{listingToEdit.city}</option> : <option value="none">Choose one</option>}
                             {cityToRender}
                         </select>
                             <label className="listing-form__label" htmlFor="city">city</label>
@@ -97,7 +97,7 @@ const ListingForm = ({addListing})=>{
                     </div>
                     <div className="listing-form__row">
                         <div className="listing-form__col">
-                            <select className="listing-form__type" placeholder="Bedrooms" id="beds">
+                            <select className="listing-form__type" placeholder="Bedrooms" id="beds" defaultValue={listingToEdit ? listingToEdit.beds : ''}>
                                 <option value="none">Choose one</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -108,7 +108,7 @@ const ListingForm = ({addListing})=>{
                             <label className="listing-form__label" htmlFor="beds">no of bedrooms</label>
                         </div>
                         <div className="listing-form__col">
-                            <select className="listing-form__type" placeholder="Bedrooms" id="baths">
+                            <select className="listing-form__type" placeholder="Bedrooms" id="baths" defaultValue={listingToEdit ? listingToEdit.baths : ''}>
                                 <option value="none">Choose one</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
@@ -117,7 +117,9 @@ const ListingForm = ({addListing})=>{
                             <label className="listing-form__label" htmlFor="baths">no of bathrooms</label>
                         </div>
                     </div>
-                    <div className="listing-form__footer"><a href="#" className="listing-form__btn" onClick={addListing}>Add new home</a></div>
+                    <div className="listing-form__footer">
+                        {editMode ? <a href="#" className="listing-form__btn" onClick={()=>overwriteListing(listingToEdit.id)}>Save changes</a> : <a href="#" className="listing-form__btn" onClick={addListing}>Add new home</a>}
+                    </div>
                 </form>
             </div>
             <style jsx>
@@ -189,6 +191,7 @@ const ListingForm = ({addListing})=>{
                         border: .2rem solid #e8edf7;
                         font-family: 'Quicksand', sans-serif;
                         font-size: 1.75rem;
+                        text-transform: capitalize;
                         cursor: pointer;
                     }
                     

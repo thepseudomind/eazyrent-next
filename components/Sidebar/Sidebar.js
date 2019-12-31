@@ -10,8 +10,8 @@ const Sidebar = ({route})=>{
                 <ul>
                     <li><Link href="/"><a className={`app__sidebar--menu--items ${route === "main" ? "active" : ""}`}><img src="/img/home.png" alt="home" className="app__sidebar--menu--icons"/>Home</a></Link></li>
                     <li><Link href="/listings"><a className={`app__sidebar--menu--items ${route === "listings" ? "active" : ""}`}><img src="/img/chart.png" alt="listing" className="app__sidebar--menu--icons"/>Listings</a></Link></li>
+                    <li><Link href="/likes"><a className={`app__sidebar--menu--items ${route === "likes" ? "active" : ""}`}><img src="/img/like.png" alt="settings" className="app__sidebar--menu--icons"/> Likes</a></Link></li>
                     <li><Link href="/profile"><a className={`app__sidebar--menu--items ${route === "profile" ? "active" : ""}`}><img src="/img/man.png" alt="profile" className="app__sidebar--menu--icons"/>Profile</a></Link></li>
-                    <li><Link href="/settings"><a className={`app__sidebar--menu--items ${route === "settings" ? "active" : ""}`}><img src="/img/settings.png" alt="settings" className="app__sidebar--menu--icons"/> Settings</a></Link></li>
                     <li><Link href="/payment"><a className={`app__sidebar--menu--items ${route === "payment" ? "active" : ""}`}><img src="/img/payment.png" alt="payment" className="app__sidebar--menu--icons"/> Payments</a></Link></li>
                     <li><a href="/" className={`app__sidebar--menu--items`}><img src="/img/signout.png" alt="signout" className="app__sidebar--menu--icons"/> Log out</a></li>
                 </ul>

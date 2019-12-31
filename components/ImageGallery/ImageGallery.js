@@ -29,7 +29,7 @@ const ImageGallery = ({images})=>{
                     }
                     
                     .image-gallery__active{
-                        height: 20rem;
+                        height: 22rem;
                         width: 100%;
                         border-radius: 1rem;
                         margin-bottom: 2rem;
@@ -41,12 +41,14 @@ const ImageGallery = ({images})=>{
                         /* min-height: 12rem; */
                         display: flex;
                         flex-wrap: wrap;
-                        justify-content: space-between;
+                        justify-content: flex-start;
                         align-content: space-around;
                     }
                     
                     .image-gallery__inactive--images{
                         width: 7.5rem;
+                        height: 5.5rem;
+                        margin-right: 1.25rem;
                         border-radius: .5rem;
                         margin-bottom: 1rem;
                         cursor: pointer;

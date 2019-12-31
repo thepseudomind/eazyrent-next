@@ -1,8 +1,9 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
-const DetailBox = ({listing})=>{
-    const [likeStatus, likeHome] = useState(false);
+const DetailBox = ({listing, isLiked, likeListing, unlikeListing})=>{
+    const [likeStatus, likeHome] = useState(isLiked(listing.id));
     const [shareStatus, shareHome] = useState(false);
+
     return (
         <div>
             <div className="detail-box">
@@ -15,21 +16,21 @@ const DetailBox = ({listing})=>{
                     </div>
                     <div className="detail-box__info">
                         <p className="detail-box__info--title">Price</p>
-                        <p className="detail-box__info--subtitle">{listing.price}</p>
+                        <p className="detail-box__info--subtitle">₦{listing.price}</p>
                     </div>
                     <div className="detail-box__info">
                         <p className="detail-box__info--title">Location</p>
-                        <p className="detail-box__info--subtitle">Ketu, Lagos</p>
+                        <p className="detail-box__info--subtitle">{listing.city},{listing.state}</p>
                     </div>
                 </div>
                 <div className="detail-box__details">
                     <div className="detail-box__info">
                         <p className="detail-box__info--title">Bedrooms</p>
-                        <p className="detail-box__info--subtitle">{listing.name[0]}</p>
+                        <p className="detail-box__info--subtitle">{listing.beds}</p>
                     </div>
                     <div className="detail-box__info">
                         <p className="detail-box__info--title">Bathrooms</p>
-                        <p className="detail-box__info--subtitle">{listing.name[0]}</p>
+                        <p className="detail-box__info--subtitle">{listing.baths}</p>
                     </div>
                     <div className="detail-box__info">
                         <p className="detail-box__info--title">Road</p>
@@ -39,19 +40,19 @@ const DetailBox = ({listing})=>{
                 <div className="detail-box__details">
                     <div className="detail-box__address">
                         <p className="detail-box__address--title">Address</p>
-                        <p className="detail-box__address--subtitle">{`21, Gbajabiamila street off Ikosi`}</p>
+                        <p className="detail-box__address--subtitle">{listing.address}</p>
                     </div>
-                    {/* <div className="detail-box__info">
-                        <p className="detail-box__info--title">Furnished</p>
-                        <p className="detail-box__info--subtitle">No</p>
-                    </div>
-                    <div className="detail-box__info">
-                        <p className="detail-box__info--title">Electricity</p>
-                        <p className="detail-box__info--subtitle">Moderate</p>
-                    </div> */}
                 </div>
                 <div className="detail-box__buttons">
-                    <span><img src={likeStatus ? "/img/heart-active.png" : "/img/heart.png"} className="detail-box__buttons--like" onClick={()=>likeHome(!likeStatus)}/></span>
+                    <span><img src={likeStatus ? "/img/heart-active.png" : "/img/heart.png"} className="detail-box__buttons--like" onClick={()=>{
+                        if(likeStatus){
+                            unlikeListing(listing.id);
+                            likeHome(false);
+                        }else{
+                            likeListing(listing.id)
+                            likeHome(true);
+                        }
+                    }}/></span> 
                     <span><img src={shareStatus ? "/img/share-active.png" : "/img/share.png"} className="detail-box__buttons--share" onClick={()=>shareHome(!shareStatus)}/></span>
                     <a href="/" className="detail-box__btn">Book now</a>
                 </div>

@@ -1,23 +1,10 @@
+import Router from 'next/router';
 import Dashboard from '../components/Dashboard/Dashboard';
 
 const addlisting = ()=>{
-    const imagesToBeUploaded = [];
+    //user: "j64ew0u143668"
+    let imagesToBeUploaded = [];
     const submitForm = async()=>{
-        // const images = Array.from(document.getElementById('images').files);
-        // const imagesToBeUploaded = [];
-        // const reader = new FileReader();
-
-        // images.forEach(
-        //     (v, i)=>{
-        //         console.log(images[i]);
-        //         window.addEventListener('load', ()=>{
-        //             imagesToBeUploaded.push(reader.result);
-        //         });
-        //         reader.readAsBinaryString(images[i]);
-        //         console.log(imagesToBeUploaded);
-        //     }
-        // );
-
         const dataToPost = {
             user: "abgfigu143668",
             name : document.getElementById('title').value,
@@ -28,7 +15,9 @@ const addlisting = ()=>{
             state : document.getElementById('state').value,
             beds : document.getElementById('beds').value,
             baths : document.getElementById('baths').value,
-            images : imagesToBeUploaded
+            description : document.getElementById('description').value,
+            images : imagesToBeUploaded,
+            likes : []
         }
 
         const res = await fetch('http://localhost:3004/listings', {
@@ -40,11 +29,23 @@ const addlisting = ()=>{
         });
         const data = await res.json();
         console.log('Success', JSON.stringify(data));
+
+        Router.push('/listings');
     }
 
-    const getImages = (image)=>{
-        imagesToBeUploaded.push(image);
-        console.log(imagesToBeUploaded);
+    const getImages = (images)=>{
+        imagesToBeUploaded = [];
+        for (const image of images) {
+          convertImages(image);  
+        }
+    }
+
+    const convertImages = (image)=>{
+        const reader = new FileReader();
+        reader.addEventListener('load', ()=>{
+            imagesToBeUploaded.push(reader.result);
+        });
+        reader.readAsDataURL(image);
     }
 
     return <Dashboard route="add-listing" addListing={submitForm} getImages={getImages}/>;

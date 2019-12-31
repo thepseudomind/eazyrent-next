@@ -17,12 +17,25 @@ import DescriptionBox from '../DescriptionBox/DescriptionBox';
 import Map from '../Map/Map';
 import ImagePicker from '../ImagePicker/ImagePicker';
 import ListingForm from '../ListingForm/ListingForm';
+import WelcomeBox from '../WelcomeBox/WelcomeBox';
+import ActionBox from '../ActionBox/ActionBox';
+import Promotions from '../Promotions/Promotions';
+import MultiFAB from '../MultiFAB/MultiFAB';
+import DescriptionForm from '../DescriptionForm/DescriptionForm';
+import LikedHomes from '../LikedHomes/LikedHomes';
+import PageTitle from '../PageTitle/PageTitle';
 
 const Dashboard = (props)=> {
     let componentToRender;
     switch (props.route) {
         case "main":
-            componentToRender = <p>I'm the main</p>;
+            componentToRender = (
+                <div>
+                    <WelcomeBox/>
+                    <ActionBox numberOfLikes={props.numberOfLikes} numberOfHomes={props.numberOfHomes}/>
+                    <Promotions/>
+                </div>
+            );
             break;
 
         case "listings":
@@ -40,8 +53,11 @@ const Dashboard = (props)=> {
                 <div>
                     <BackButton text="Back to listings" route="/listings"/>
                     <div className="app__main--details">
-                        <ListingForm addListing={props.addListing}/>
-                        <ImagePicker getImages={props.getImages}/>
+                        <ListingForm formTitle="Add new home" addListing={props.addListing}/>
+                        <div className="other-form">
+                            <DescriptionForm/>
+                            <ImagePicker getImages={props.getImages}/>
+                        </div>
                     </div>
                     <style jsx>
                         {`
@@ -51,11 +67,44 @@ const Dashboard = (props)=> {
                                 margin: 5rem 0;
                                 // background-color: red;
                             }
+
+                            .other-form{
+                                margin-top: 6rem;
+                            }
                         `}
                     </style>
                 </div>
             );
             break;
+        
+            case "edit-listing":
+                componentToRender = (
+                    <div>
+                        <BackButton text="Cancel editing" route={`/view-listing/?id=${props.listingID}`}/>
+                        <div className="app__main--details">
+                            <ListingForm formTitle="Edit home" addListing={props.addListing} listingToEdit={props.listingToEdit} editMode={true} overwriteListing={props.overwriteListing}/>
+                            <div className="other-form">
+                                <DescriptionForm description={props.listingToEdit.description}/>
+                                {/* <ImagePicker getImages={props.getImages} fetchedImages={props.listingToEdit.images}/> */}
+                            </div>
+                        </div>
+                        <style jsx>
+                            {`
+                                .app__main--details{
+                                    display: flex;
+                                    justify-content: space-between;
+                                    margin: 5rem 0;
+                                    // background-color: red;
+                                }
+
+                                .other-form{
+                                    margin-top: 6rem;
+                                }
+                            `}
+                        </style>
+                    </div>
+                );
+                break;
 
         case "view-listing":
             componentToRender = (
@@ -63,17 +112,19 @@ const Dashboard = (props)=> {
                     <BackButton text="Back to listings" route="/listings"/>
                     <div className="app__main--details">
                         <ImageGallery images={props.listing.images}/>
-                        <DetailBox listing={props.listing}/>
+                        <DetailBox listing={props.listing} isLiked={props.isLiked} likeListing={props.likeListing} unlikeListing={props.unlikeListing}/>
                     </div>
                     <div className="app__main--details">
-                        <DescriptionBox/>
+                        <DescriptionBox description={props.listing.description}/>
                         <Map/>
                     </div>
+                    {(props.listing.user !== "abgfigu143668") ? <span></span> : <MultiFAB editListing={props.editListing} deleteListing={props.deleteListing}/>}
                     <style jsx>
                         {`
                             .app__main--details{
                                 display: flex;
                                 justify-content: space-between;
+                                align-items: flex-start;
                                 margin: 5rem 0;
                                 // background-color: red;
                             }
@@ -96,8 +147,13 @@ const Dashboard = (props)=> {
             );
             break;
 
-        case "settings":
-            componentToRender = <h1>Settings page</h1>;
+        case "likes":
+            componentToRender = (
+                <div>
+                    <PageTitle title="Liked Homes"/>
+                    <LikedHomes likedHomes={props.housesLiked}/>
+                </div>
+            );
             break;
 
         case "payment":

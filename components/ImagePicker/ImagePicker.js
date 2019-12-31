@@ -5,21 +5,30 @@ const ImagePicker = ({getImages})=>{
 
     const recieveImages = (files)=>{
         chooseImages(Array.from(files));
+        getImages(Array.from(files));
     }
 
     const renderImage = (image, i)=>{
         const reader = new FileReader();
         reader.addEventListener('load', ()=>{
-            getImages(reader.result);
             document.getElementById(`preview-${i}`).style.backgroundImage = `url(${reader.result})`;
         });
         reader.readAsDataURL(image); 
     }
 
+    // const renderFetchedImages = (image, i)=>{
+    //     // console.log(image);
+    //     const reader = new FileReader();
+    //     reader.addEventListener('load', ()=>{
+    //         document.getElementById(`preview-${i}`).style.backgroundImage = `url(${image})`;
+    //     });
+    // }
+
     const deleteImage = (e)=>{
         const id = parseInt(e.target.parentNode.id.slice(-1));
         images.splice(id, 1);
         chooseImages([...images]);
+        getImages([...images]);
     }
 
     return (
@@ -59,7 +68,7 @@ const ImagePicker = ({getImages})=>{
             <style jsx>
                 {`
                     .image-picker{
-                        margin-top: 8.5rem; //Just for this project
+                        margin-top: 2.5rem; //Just for this project
                         height: 15rem;
                         width: 30rem;
                         border-radius: .5rem;
@@ -156,3 +165,27 @@ const ImagePicker = ({getImages})=>{
 }
 
 export default ImagePicker;
+
+// {
+//     fetchedImages ? fetchedImages.map((v, i, a) => {
+//         renderFetchedImages(a[i], i);
+//         return (
+//             <div key={`preview-${i}`} id={`preview-${i}`} className="image-picker__img">
+//                 <span className="image-picker__del" onClick={deleteImage}>
+//                     x
+//                 </span>
+//             </div>
+//         );
+//     })
+//     :
+//     images.map((v, i, a) => {
+//         renderImage(a[i], i);
+//         return (
+//             <div key={`preview-${i}`} id={`preview-${i}`} className="image-picker__img">
+//                 <span className="image-picker__del" onClick={deleteImage}>
+//                     x
+//                 </span>
+//             </div>
+//         );
+//     })
+// }
